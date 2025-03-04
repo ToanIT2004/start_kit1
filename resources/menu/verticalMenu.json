@@ -1,0 +1,49 @@
+{
+  "menu": [
+    {
+      "url": "/",
+      "name": "Trang chủ",
+      "icon": "menu-icon tf-icons ti ti-smart-home",
+      "slug": "pages-home"
+    },
+    {
+      "name": "Phân quyền",
+      "icon": "menu-icon tf-icons ti ti-smart-home",
+      "slug": "app-ecommerce-customer",
+      "submenu": [
+        {
+          "url": "user",
+          "name": "Vai trò & Quyền hạn",
+          "slug": "Vai trò & Quyền hạn"
+        },
+        {
+          "url": "user/create",
+          "name": "Vai trò",
+          "slug": "Vai trò"
+        },
+        {
+          "url": "user/create",
+          "name": "Quyền hạn",
+          "slug": "Quyền hạn"
+        }
+      ]
+    },
+    {
+      "name": "Người dùng",
+      "icon": "menu-icon tf-icons ti ti-smart-home",
+      "slug": "app-ecommerce-customer",
+      "submenu": [
+        {
+          "url": "user",
+          "name": "Danh sách",
+          "slug": "Danh sách người dùng"
+        },
+        {
+          "url": "user/create",
+          "name": "Tạo người dùng",
+          "slug": "Đăng ký người dùng"
+        }
+      ]
+    }
+  ]
+}
