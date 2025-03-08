@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Vite;
 
 class AppServiceProvider extends ServiceProvider
 {
+  
   /**
    * Register any application services.
    */
@@ -29,5 +30,6 @@ class AppServiceProvider extends ServiceProvider
       }
       return [];
     });
+    
   }
 }

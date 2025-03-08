@@ -30,8 +30,8 @@
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>
-                                    <a href="{{route('user.edit', ['id' => $user->id])}}">Edit</a>
-                                    <a class="text-blue-500 hover:underline" href="javascript:void(0);"
+                                    <a class="px-1" href="{{route('user.edit', ['id' => $user->id])}}">Edit</a>
+                                    <a class="px-1 text-danger hover:underline" href="javascript:void(0);"
                                         onclick="deleteLead({{ $user->id }})">Delete</a>
                                     <form id="user{{$user->id}}" action="{{ route('user.delete', ['id' => $user->id]) }}"
                                         method="post">
@@ -48,7 +48,7 @@
         @endcan
         <script>
             function deleteLead(userId) {
-                if (confirm("Are you sure to delete user?") == true) {
+                if (confirm("Bạn có chắc chắn xóa không?") == true) {
                     document.getElementById('user' + userId).submit();
                 }
             }

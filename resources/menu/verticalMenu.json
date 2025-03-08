@@ -9,7 +9,7 @@
     {
       "name": "Phân quyền",
       "icon": "menu-icon tf-icons ti ti-smart-home",
-      "slug": "app-ecommerce-customer",
+      "slug": "",
       "submenu": [
         {
           "url": "user",
@@ -17,12 +17,12 @@
           "slug": "Vai trò & Quyền hạn"
         },
         {
-          "url": "user/create",
+          "url": "role",
           "name": "Vai trò",
           "slug": "Vai trò"
         },
         {
-          "url": "user/create",
+          "url": "permission",
           "name": "Quyền hạn",
           "slug": "Quyền hạn"
         }

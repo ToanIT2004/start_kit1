@@ -4,17 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
+        if (!Auth::user()->can('user_access')) {
+            return view('content.pages.pages-misc-error');
+        }
+
         $users = DB::table('users')->get();
-        return view('content.apps.app-ecommerce-customer-all', compact('users'));
+        return view('user.index', compact('users'));
     }
 
     /**
@@ -22,7 +25,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('content.apps.app-ecommerce-customer-create');
+        if (!Auth::user()->can('user_create')) {
+            return view('content.pages.pages-misc-error');
+        }
+        $roles = DB::table('roles')->get(); // Lấy tất cả roles
+        return view('user.create', compact('roles'));
     }
 
     /**
@@ -43,8 +50,10 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password), // Hash mật khẩu
         ]);
-        $user->addRole('user');
-
+        if ($request->has('role_id')) {
+            $user->role_id = $request->input('role_id');
+            $user->save();
+        }
         return redirect()->route('user.index');
     }
 
@@ -61,9 +70,16 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        $user = User::find($id);
-        return view('content.apps.app-ecommerce-customer-edit', compact('user'));
+        if (!Auth::user()->can('user_edit')) {
+            return view('content.pages.pages-misc-error');
+        }
+        $user = User::findOrFail($id); // Lấy thông tin user
+        $roles = DB::table('roles')->get(); // Lấy tất cả roles
+        $user_role = $user->role_id; // Lấy role_id của user
+
+        return view('user.edit', compact('user', 'roles', 'user_role'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -72,10 +88,15 @@ class UserController extends Controller
     {
         $validateData = $request->validate([
             "name" => 'required|string',
-            "email" => 'required|unique:users,email',
+            "email" => 'required',
         ]);
         $user = User::find($id);
         $user->update($validateData);
+        // // Nếu có role_id trong request thì cập nhật, nếu không có thì giữ nguyên
+        if ($request->has('role_id')) {
+            $user->role_id = $request->input('role_id');
+            $user->save();
+        }
         return redirect()->route('user.index');
     }
 
@@ -84,6 +105,9 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
+        if (!Auth::user()->can('user_delete')) {
+            return view('content.pages.pages-misc-error');
+        }
         $user = User::find($id);
         $user->delete();
         return redirect()->route('user.index');
